@@ -17,6 +17,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^4.18.2",
+    "full_stack": "file:..",
     "mongoose": "^7.0.3"
   },
   "devDependencies": {
