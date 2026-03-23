@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router';
-import axios from 'axios';
+import api from "../lib/axios";
 import toast from 'react-hot-toast';
 
 const NoteDetailPage = () => {
@@ -20,7 +20,7 @@ const NoteDetailPage = () => {
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/notes/${id}`);
+        const res = await api.get(`/notes/${id}`);
         setNote(res.data);
         setTitle(res.data.title);
         setContent(res.data.content);
@@ -42,7 +42,7 @@ const NoteDetailPage = () => {
     }
     setUpdating(true);
     try {
-      const res = await axios.put(`http://localhost:5001/api/notes/${id}`, { title, content });
+      const res = await api.put(`/notes/${id}`, { title, content });
       toast.success("Note updated successfully");
       setNote(res.data);
       setIsEditing(false);
@@ -57,7 +57,7 @@ const NoteDetailPage = () => {
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this note?")) return;
     try {
-      await axios.delete(`http://localhost:5001/api/notes/${id}`);
+      await api.delete(`/notes/${id}`);
       toast.success("Note deleted successfully");
       navigate("/");
     } catch (error) {
